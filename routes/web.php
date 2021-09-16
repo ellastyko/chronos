@@ -14,16 +14,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::get('/me', function () {
+Route::get('/', function () {
     if(isset($_COOKIE['token']))
         return view('main');
     else 
-        return redirect('welcome');
-})->name('me');
+        return view('welcome');
+})->name('main');
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('welcome');
 
 Route::get('/signup', function () {
     return view('register');

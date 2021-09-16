@@ -33,7 +33,7 @@ export default function Login() {
 
             Cookies.set('token', data.token)
             toast.success(data.message);
-            window.location.pathname = '/me'
+            window.location.pathname = '/'
         })
         .catch(error => {
 
