@@ -25,6 +25,15 @@ Route::prefix('user')->group( function() {
     Route::post('/login', 'App\Http\Controllers\UserController@login'); 
 });
 
+Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'calendars'], function () {
+
+    Route::get('/', 'App\Http\Controllers\EventController@index');
+    Route::post('/', 'App\Http\Controllers\EventController@store'); 
+    Route::get('/{id}', 'App\Http\Controllers\EventController@showByUserId');
+    Route::patch('/{id}', 'App\Http\Controllers\EventController@update'); 
+    Route::delete('/{id}', 'App\Http\Controllers\EventController@destroy'); 
+});
+
 Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'events'], function () {
 
     Route::get('/', 'App\Http\Controllers\EventController@index');

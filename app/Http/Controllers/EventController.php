@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Event;
+
 
 class EventController extends Controller
 {
@@ -24,7 +26,20 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string',
+            'date' => 'required',
+            'calendar_id' => 'required'
+        ]);
+        $calendar = Event::create([
+            'title' => $request->input('title'),
+            'date' => $request->input('date'),
+            '' => $request->input('date')
+        ]);
+        return response([
+            'message' => 'Calendar added!',
+            'calendar' => $calendar
+        ]);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Calendar;
 
 class CalendarController extends Controller
 {
@@ -13,7 +14,9 @@ class CalendarController extends Controller
      */
     public function index()
     {
-        //
+        return response([
+            'calendars' => Calendar::all()
+        ]);
     }
 
     /**
@@ -24,7 +27,18 @@ class CalendarController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'title' => 'required|string',
+            'type' => 'required|not_in:0'
+        ]);
+        $calendar = Calendar::create([
+            'title' => $request->input('title'),
+            'type' => $request->input('type')
+        ]);
+        return response([
+            'message' => 'Calendar added!',
+            'calendar' => $calendar
+        ]);
     }
 
     /**
@@ -33,9 +47,20 @@ class CalendarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+
+    public function showByUserId($id)
     {
-        //
+        $calendar = Calendar::find($id);
+        if ($calendar) {
+            return response([
+                'calendar' => $calendar
+            ]);
+        }
+        else {
+            response([
+                'message' => 'Calendar was not found!'
+            ], 404);
+        }
     }
 
     /**

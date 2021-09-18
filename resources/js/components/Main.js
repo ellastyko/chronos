@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
+import axios from 'axios'
 
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
@@ -39,20 +40,23 @@ export default function Main() {
                     <img src="/media/logout.png"/>    
                 </button>
             </div>
-            
+
             <div className="container">
                 <h2 className="display-4 text-center my-3">Chronos calendars</h2>
-                <button className="btn m-3">
-                    <h5 className="display-6 text-center">My calendar</h5>
-                    <hr className="m-2"/>
-                    <img src="/media/myschedule.png" className="" alt="My calendar"/>    
-                </button>
-                <button className="btn">
-                    <h5 className="display-6 text-center">Parties</h5>
-                    <hr className="m-2"/>
-                    <img src="/media/schedule.png" className=""/>    
-                </button>
-                <ModalWindow/>
+                <div className="d-flex flex-wrap">
+                    <button className="btn m-2 text-center" style={{ minWidth: "220px"}}>
+                        <h5 className="display-6">My calendar</h5>
+                        <hr className="m-2 "/>
+                        <img src="/media/myschedule.png" className="" alt="My calendar"/>    
+                    </button>
+                    <button className="btn m-2" style={{ minWidth: "220px"}}>
+                        <h5 className="display-6 text-center">Parties</h5>
+                        <hr className="m-2"/>
+                        <img src="/media/schedule.png" className=""/>    
+                    </button>
+                    <ModalWindow/>
+                </div>
+                
                 {/* <Calendar
                     className="shadow rounded"
                     onChange={onChange}

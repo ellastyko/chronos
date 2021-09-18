@@ -15,7 +15,12 @@ class CreateCalendarsTable extends Migration
     {
         Schema::create('calendars', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->string('title', 20);
+            $table->enum('type', ['arrangement', 'reminder', 'task']);
+        });
+
+        Schema::table('events', function (Blueprint $table) {
+            $table->foreignId('calendar_id')->nullable()->constrained('calendars')->onDelete('set null');
         });
     }
 
