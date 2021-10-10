@@ -16,6 +16,7 @@ class Calendar extends Model
      */
     protected $fillable = [
         'title',
-        'type'
+        'type',
+        'author'
     ];
 }

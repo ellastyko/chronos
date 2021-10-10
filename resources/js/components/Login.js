@@ -1,5 +1,6 @@
 import React from 'react';
 import toast,  { Toaster } from 'react-hot-toast';
+import {Modal, Button, Form, FloatingLabel, FormGroup} from 'react-bootstrap';
 import Cookies from "js-cookie"
 import ReactDOM from 'react-dom';
 
@@ -52,9 +53,9 @@ export default function Login() {
         <div className="container min-vh-100 d-flex justify-content-center">
             <Toaster />
             <div className="col-md-4 col-md-offset-3 d-flex">
-                <form className="h-50 w-100 align-self-center" onSubmit={onSubmit}>
+                <Form className="h-50 w-100 align-self-center" onSubmit={onSubmit}>
                     <p className="h4 mb-4 text-center">Chronos <img src="/media/logo.png"/> </p>
-                    <div className="form-group">
+                    <Form.Group className="mb-2">
                         <label htmlFor="email">Email address</label>
                         <input 
                             required
@@ -63,16 +64,16 @@ export default function Login() {
                             id="email" 
                             aria-describedby="emailHelp" 
                             placeholder="Enter email"/>
-                    </div>
-                    <div className="form-group">
+                    </Form.Group>
+                    <Form.Group className="mb-2">
                         <label htmlFor="password">Password</label>
                         <input type="password" className="form-control" id="password" placeholder="Password" required/>
-                    </div>
-                    <div className="row justify-content-around">
+                    </Form.Group>
+                    <Form.Group className="mb-2 row justify-content-around" >
                         <button type="submit" className="btn btn-primary">Log in</button>
                         <a href="/signup" className="form-text">Sign up</a>
-                    </div>              
-                </form>
+                    </Form.Group>     
+                </Form>
             </div>
         </div>
     );

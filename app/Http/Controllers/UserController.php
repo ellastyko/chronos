@@ -15,7 +15,10 @@ use App\Http\Requests\ {
     LoginRequest
 };
 // Models
-use App\Models\User;
+use App\Models\ {
+    User,
+    Calendar
+};
 
 class UserController extends Controller
 {
@@ -58,6 +61,11 @@ class UserController extends Controller
             $user = User::create([
                 'email' => $request['email'],
                 'password' => Hash::make($request['password'])                  
+            ]);
+            Calendar::create([
+                'title' => 'My calendar',
+                'type' => 'reminder',
+                'author' => $user->id
             ]);
             return response([
                 'message' => 'You have registered',

@@ -3,7 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Calendar;
+use App\Models\ {
+    Calendar,
+    Event
+};
+use Illuminate\Support\Facades\Auth;
+
 
 class CalendarController extends Controller
 {
@@ -12,10 +17,10 @@ class CalendarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function UserCalendars()
+    {     
         return response([
-            'calendars' => Calendar::all()
+            'calendars' => Calendar::where(['author' => Auth::user()->id])->get()
         ]);
     }
 
@@ -29,11 +34,12 @@ class CalendarController extends Controller
     {
         $request->validate([
             'title' => 'required|string',
-            'type' => 'required|not_in:0'
+            'type' => 'required|not_in:0',
         ]);
         $calendar = Calendar::create([
             'title' => $request->input('title'),
-            'type' => $request->input('type')
+            'type' => $request->input('type'),
+            'author' => Auth::user()->id
         ]);
         return response([
             'message' => 'Calendar added!',
@@ -47,8 +53,7 @@ class CalendarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-
-    public function showByUserId($id)
+    public function show($id)
     {
         $calendar = Calendar::find($id);
         if ($calendar) {
@@ -61,6 +66,13 @@ class CalendarController extends Controller
                 'message' => 'Calendar was not found!'
             ], 404);
         }
+    }
+
+    public function showEvents(Request $request, $id)
+    {
+        return response([
+            'events' => Event::getEventsByDate($request->get('date'), $id)->get()
+        ]);
     }
 
     /**

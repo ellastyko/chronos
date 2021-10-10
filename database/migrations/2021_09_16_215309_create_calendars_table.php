@@ -17,6 +17,7 @@ class CreateCalendarsTable extends Migration
             $table->id();
             $table->string('title', 20);
             $table->enum('type', ['arrangement', 'reminder', 'task']);
+            $table->foreignId('author')->nullable()->constrained('users')->onDelete('set null');
         });
 
         Schema::table('events', function (Blueprint $table) {

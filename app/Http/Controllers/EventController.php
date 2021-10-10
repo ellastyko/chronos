@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Event;
-
+use Carbon\Carbon;
+use DateTime;
 
 class EventController extends Controller
 {
@@ -15,7 +16,7 @@ class EventController extends Controller
      */
     public function index()
     {
-        //
+        return Event::all();
     }
 
     /**
@@ -26,19 +27,28 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+       
         $request->validate([
             'title' => 'required|string',
             'date' => 'required',
             'calendar_id' => 'required'
         ]);
-        $calendar = Event::create([
+
+        $date = Carbon::createFromFormat('d/m/Y H:i', $request->input('date'));
+        if ($date->isPast()) {
+            return response([
+                'message' => 'Choose valid date!'
+            ], 400);
+        }
+        $event = Event::create([
             'title' => $request->input('title'),
-            'date' => $request->input('date'),
-            '' => $request->input('date')
+            'date' => $date->format('Y-m-d'),  
+            'time' => $date->format('H:i:s'),     
+            'calendar_id' =>  $request->input('calendar_id')
         ]);
         return response([
-            'message' => 'Calendar added!',
-            'calendar' => $calendar
+            'message' => 'Event added!',
+            'event' => $event
         ]);
     }
 

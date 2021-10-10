@@ -27,11 +27,13 @@ Route::prefix('user')->group( function() {
 
 Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'calendars'], function () {
 
-    Route::get('/', 'App\Http\Controllers\EventController@index');
-    Route::post('/', 'App\Http\Controllers\EventController@store'); 
-    Route::get('/{id}', 'App\Http\Controllers\EventController@showByUserId');
-    Route::patch('/{id}', 'App\Http\Controllers\EventController@update'); 
-    Route::delete('/{id}', 'App\Http\Controllers\EventController@destroy'); 
+    Route::get('/', 'App\Http\Controllers\CalendarController@UserCalendars');
+    Route::post('/', 'App\Http\Controllers\CalendarController@store'); 
+    Route::get('/{id}', 'App\Http\Controllers\CalendarController@show');
+    Route::get('/{id}/events', 'App\Http\Controllers\CalendarController@showEvents');
+
+    Route::patch('/{id}', 'App\Http\Controllers\CalendarController@update'); 
+    Route::delete('/{id}', 'App\Http\Controllers\CalendarController@destroy'); 
 });
 
 Route::group(['middleware' => ['auth:sanctum'], 'prefix' => 'events'], function () {
