@@ -13,6 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::get('/', function () {
-    return view('welcome');
-});
+    if(isset($_COOKIE['token']))
+        return view('main');
+    else 
+        return view('welcome');
+})->name('main');
+
+
+Route::get('/signup', function () {
+    return view('register');
+})->name('register');
+
+Route::get('/login', function () {
+    return view('login');
+})->name('login');
