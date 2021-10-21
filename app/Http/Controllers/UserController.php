@@ -17,11 +17,15 @@ use App\Http\Requests\ {
 // Models
 use App\Models\ {
     User,
-    Calendar
+    Calendar,
+    Participant
 };
 
 class UserController extends Controller
 {
+    public function index(Request $request) {
+        return User::where('email', 'like', '%'.$request->get('search').'%')->get();
+    }
 
     public function login(LoginRequest $request) {
 
@@ -62,10 +66,14 @@ class UserController extends Controller
                 'email' => $request['email'],
                 'password' => Hash::make($request['password'])                  
             ]);
-            Calendar::create([
+            $calendar = Calendar::create([
                 'title' => 'My calendar',
                 'type' => 'reminder',
                 'author' => $user->id
+            ]);
+            Participant::create([
+                'calendar' => $calendar->id,
+                'participant' => $user->id
             ]);
             return response([
                 'message' => 'You have registered',
