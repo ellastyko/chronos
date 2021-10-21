@@ -28,7 +28,14 @@ export default function Main() {
             changeCalendars(response.data.calendars)
         })
         .catch(error => {
-            
+            const errors = error.response.data?.errors;
+            const message = error.response.data?.message;
+
+            if (errors) 
+                for (let i in errors) 
+                    toast.error(errors[i]);   
+            else 
+                toast.error(message);       
         })   
     }, [])
 

@@ -9,9 +9,10 @@ import 'react-calendar/dist/Calendar.css';
 import toast,  { Toaster } from 'react-hot-toast';
 
 import AddEventModal from './AddEventModal';
+import ShareEventModal from './ShareEventModal';
+
 
 export default function CalendarWindow(props) {
-
 
     const [date, changeDate] = useState(new Date());
     const [events, setEvents] = useState([])
@@ -81,6 +82,8 @@ export default function CalendarWindow(props) {
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
+                    <ShareEventModal calendar_id={props.id}/>
+                    
                     <Button variant="secondary" onClick={handleClose}>
                         Close
                     </Button>

@@ -34,7 +34,7 @@ export default function Register() {
             password
         }
         
-        axios.post('/api/user/register', data)
+        axios.post('/api/users/register', data)
         .then(response => {
             toast.success(response.data.message);
             window.location.pathname = '/login'

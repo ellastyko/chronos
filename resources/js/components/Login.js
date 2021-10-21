@@ -27,7 +27,7 @@ export default function Login() {
             password
         }
         
-        axios.post('/api/user/login', data)
+        axios.post('/api/users/login', data)
         .then(response => {
 
             const data = response.data
